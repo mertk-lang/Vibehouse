@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
  import vibe from './vibe'
+ import user from './user'
+ import comment from './comment'
+
+ import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
@@ -17,13 +21,18 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      vibe
+      vibe,
+      user,
+      comment
     },
 
+    plugins: [createPersistedState()],
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING
   })
+
+
 
   return Store
 }

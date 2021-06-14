@@ -9,6 +9,7 @@ const auth = require('../middlewares/middlewares');
 // Index Page
 
 router.get('/', (req, res) => {
+
     Post.find({})
     .populate('author')
     .populate('image')
@@ -24,23 +25,23 @@ router.get('/', (req, res) => {
 
 // Post(Create) Route
 
-router.post('/add', auth.isLoggedIn, upload.single('image'), (req, res, next) => {
+router.post('/add', upload.single('image'), (req, res, next) => {
     let post = new Post({
-        title: req.body.title,
-        body: req.body.body,
+        location: req.body.location,
+        caption: req.body.caption,
         author: req.user.id,
         image: {
-            url: req.file.path,                                              
+            url: req.file.path,
             filename: req.file.filename
         }
     });
     post.save().then((post) => {
         res.status(200).json({post: 'post'})
-    })     
+    })
 })
 
 // Edit Post route
- 
+
 router.get('/edit/:id', (req, res) => {
     Post.findById(req.params.id,  (err, post) => {
         if(err){

@@ -9,9 +9,10 @@ function checkTokenSetUser(req, res, next) {
         if (error) {
           res.status(401);
           next(error);
-        }  
-        req.user = user;
-        next();
+        } else {
+          req.user = user;
+          next();
+        } 
       });
     } else {
       next();

@@ -3,13 +3,11 @@ const mongoose = require('mongoose');
 const Comment = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "User"
     },
-    likes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    }],
-    body: String
-})
+    caption: String,
+},
+  { timestamps: true }
+)
 
 module.exports = mongoose.model('Comment', Comment);

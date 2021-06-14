@@ -12,8 +12,13 @@ if(process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
+
 const middlewares = require('./middlewares/middlewares');
 
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.use(cors());
 
 
 mongoose.Promise = global.Promise;
@@ -26,17 +31,14 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-
-app.use(cors({
-  origin: 'http://localhost:8080'
-}));
-app.use(express.json());
-
-app.use(middlewares.checkTokenSetUser);
-
+app.use(middlewares.checkTokenSetUser)
 
 app.use('/auth', require('./routes/user.route.js'));
-app.use('/posts',  require('./routes/post.route.js'));
+app.use('/posts', middlewares.isLoggedIn, require('./routes/post.route.js'));
+app.use('/posts/:id/comments', middlewares.isLoggedIn, require('./routes/comment.route.js'));
+
+
+
 
 app.use('/', (req, res) => {
   res.json({
@@ -46,18 +48,17 @@ app.use('/', (req, res) => {
 
 
 
-
 function notFound(req, res, next) {
   res.status(404);
   const error = new Error('Not Found - ' + req.originalUrl);
   next(error);
 }
 
-function errorHandler(err, req, res,) {
+function errorHandler(error, req, res,) {
   res.status(res.statusCode || 500);
   res.json({
-    message: err.message,
-    stack: err.stack
+    message: error.message,
+    stack: error.stack
   });
 }
 
