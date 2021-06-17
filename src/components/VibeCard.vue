@@ -4,7 +4,7 @@
        <q-item>
           <q-item-section avatar>
            <q-avatar>
-            <img src="https://i.pinimg.com/originals/55/55/87/555587aa4cd4a2822dc7a06e70ca998f.jpg">
+            <img :src="vibe.author.image.url">
            </q-avatar>
            </q-item-section>
 
@@ -30,11 +30,15 @@
         v-bind:src="vibe.image.url"
       />
       <q-card-section class="">
-        <div class="text-overline text-orange-9">{{ vibe.location }}</div>
-        <div class="text-caption text-grey">
+        <div class="q-mb-sm text-grey-10 text-bold">{{ vibe.location }}</div>
+        <div class="q-mb-sm text-weight-regular">
           {{ vibe.caption }}
         </div>
-        <q-btn @click="toggleComments" class="large-screen text-grey-10 q-mr-md" flat round color="primary" size="14px" icon="eva-message-square-outline" dense/>
+        <div class="q-mb-sm text-subtitle2 text-grey-7">
+          {{vibe.date | convertDate}}
+          </div>
+        <q-btn v-if="!this.$q.dark.isActive"  @click="toggleComments" class="large-screen text-grey-10 q-mr-md" flat round color="primary" size="14px" icon="eva-message-circle-outline" dense/>
+        <q-btn v-if="this.$q.dark.isActive" @click="toggleComments" class="large-screen text-white q-mr-md" flat round color="primary" size="14px" icon="eva-message-circle-outline" dense/>
       </q-card-section>
       <q-card-section v-if="showComments">
         <Comment v-for="comment in comments"
@@ -56,6 +60,8 @@
  </template>
 
  <script>
+  import { date } from 'quasar'
+
   import axios from 'axios';
 
    import Comment from '../components/Comment.vue'
@@ -88,9 +94,9 @@
          'comment', ['fetchComments']
        ),
 
-       deleteVibe(id, vibe) {
+       deleteVibe(id) {
           let url = `http://localhost:4000/posts/delete/${id}`;
-          this.axios.delete(url).then(() => {
+          axios.delete(url).then(() => {
           this.getVibes.splice(this.getVibes.indexOf(vibe), 1);
       });
        },
@@ -120,6 +126,11 @@
         })
        }
      },
+      filters: {
+        convertDate(value) {
+          return date.formatDate(value, 'MMMM D h:mmA')
+        }
+      },
    }
  </script>
 

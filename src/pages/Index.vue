@@ -11,15 +11,22 @@
     <q-item class="fixed q-py-lg">
         <q-item-section avatar>
           <q-avatar size="50px">
-            <img src="https://i.pinimg.com/originals/55/55/87/555587aa4cd4a2822dc7a06e70ca998f.jpg">
+            <img v-bind:src="getUser.image.url">
           </q-avatar>
         </q-item-section>
 
 
 
-        <q-item-section>
-          <q-item-label caption>
+        <q-item-section v-if="!this.$q.dark.isActive">
+          <q-item-label class="text-dark">
             {{ getUser.username }}
+            <q-btn @click="nullifyToken()" flat style="color: #0a0078" label="Sign Out" />
+          </q-item-label>
+        </q-item-section>
+        <q-item-section v-if="this.$q.dark.isActive">
+          <q-item-label class="text-white">
+            {{ getUser.username }}
+            <q-btn @click="nullifyToken()" flat style="color: #7653a3" label="Sign Out" />
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -44,7 +51,15 @@ export default {
     ...mapGetters('user', ['getUser']),
   },
   methods: {
-    ...mapActions('vibe', ['fetchVibes'])
+    ...mapActions('vibe', ['fetchVibes']),
+    ...mapActions('user', ['signOut']),
+
+    nullifyToken() {
+      this.signOut()
+      .then(() => {
+        this.$router.push('/login')
+      })
+    }
   }
 }
 </script>

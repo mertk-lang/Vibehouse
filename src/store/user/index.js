@@ -11,6 +11,7 @@ const schema = Joi.object({
       .max(30)
       .required(),
     password: Joi.string().min(8).required(),
+    avatar: Joi.any().allow('avatar')
   });
 
 
@@ -33,9 +34,6 @@ const getters = {
   getToken (state) {
   return state.token;
 },
-  getLoading(state) {
-    return state.loading;
-  }
 
 };
 
@@ -43,7 +41,7 @@ const getters = {
 const actions = {
 
   async signNewUser( { dispatch }, credentials) {
-    dispatch('toggleLoading');
+    console.log(credentials)
     let validation = schema.validate(credentials);
     let error = ""
     if (validation.error === undefined) {
@@ -80,7 +78,11 @@ async login({ dispatch }, user) {
 
 async register({ dispatch }, user) {
   try {
-      let response = await axios.post(registerApi, user);
+      const formData = new FormData();
+      formData.append("username", user.username);
+      formData.append("password", user.password);
+      formData.append("image", user.avatar);
+      let response = await axios.post(registerApi, formData);
       const token = response.data.token
       localStorage.setItem('token', token)
       axios.defaults.headers.common['authorization'] = `Bearer ${token}`

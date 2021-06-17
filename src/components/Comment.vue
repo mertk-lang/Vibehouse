@@ -4,9 +4,16 @@
       <q-item class="q-mb-sm">
         <div class="">
           <q-item-section class="">
-           <div class="">
-                <q-item-label>{{ comment.author.username }}</q-item-label>
-                <q-item-label caption class="black">{{ comment.caption }}</q-item-label>
+           <div class="flex row">
+                <div class="q-mr-md">
+                  <q-avatar>
+                  <img :src="comment.author.image.url">
+                  </q-avatar>
+                </div>
+                <div>
+                  <q-item-label>{{ comment.author.username }}</q-item-label>
+                  <q-item-label caption class="black">{{ comment.caption }}</q-item-label>
+                </div>
             </div>
           </q-item-section>
         </div>
