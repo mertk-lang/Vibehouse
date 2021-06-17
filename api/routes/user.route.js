@@ -4,6 +4,9 @@ const User = require('../models/user.model');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const { storage } = require('../cloudinary')
+const upload = multer({ storage })
 
 const schema = Joi.object({
   username: Joi.string()
@@ -12,7 +15,8 @@ const schema = Joi.object({
       .max(30)
       .required(),
 
-  password: Joi.string().min(8).required()
+  password: Joi.string().min(8).required(),
+  avatar: Joi.any().allow('avatar')
 });
 
 function createToken(user, req, res, next) {
@@ -36,7 +40,7 @@ function createToken(user, req, res, next) {
 }
 
 // Create User 
-router.post('/register', (req, res, next) => {
+router.post('/register', upload.single('image'), (req, res, next) => {
   const validation = schema.validate(req.body);
   if(validation.error === undefined) {
     User.findOne({
@@ -49,8 +53,12 @@ router.post('/register', (req, res, next) => {
       } else {
         bcrypt.hash(req.body.password, 12).then(hashedPassword => {
           let user = new User({
-            'username': req.body.username,
-            'password': hashedPassword
+             username: req.body.username,
+             password: hashedPassword,
+             image: {
+               url: req.file.path,
+               filename: req.file.filename
+             }
           });
           user.save()
           .then((registeredUser) => {
@@ -76,7 +84,9 @@ router.post('/login', (req, res, next) => {
   if(validation.error === undefined) {
     User.findOne({
       'username': req.body.username
-    }).then(user => {
+    })
+    .populate('image')
+    .then(user => {
       if(user) {
         bcrypt.compare(req.body.password, user.password)
         .then(result => {

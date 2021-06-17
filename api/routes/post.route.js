@@ -11,6 +11,7 @@ const auth = require('../middlewares/middlewares');
 router.get('/', (req, res) => {
 
     Post.find({})
+    .sort({"date":-1})
     .populate('author')
     .populate('image')
     .then((err, posts) => {
@@ -30,6 +31,7 @@ router.post('/add', upload.single('image'), (req, res, next) => {
         location: req.body.location,
         caption: req.body.caption,
         author: req.user.id,
+        date: req.body.date,
         image: {
             url: req.file.path,
             filename: req.file.filename
@@ -76,7 +78,7 @@ router.post('/update/:id', (req, res) => {
 // Delete Router
 
 router.delete('/delete/:id',  (req, res) => {
-    Post.findByIdAndRemove({_id: req.params.id}, (err) => {
+    Post.findByIdAndRemove(req.params.id, (err) => {
         if(err){
             res.json(err);
         } else {

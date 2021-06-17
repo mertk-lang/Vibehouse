@@ -3,6 +3,7 @@ const PORT = 4000;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
+const User = require('./models/user.model.js')
 
 
 require('dotenv').config();
@@ -14,6 +15,7 @@ if(process.env.NODE_ENV !== "production") {
 const app = express();
 
 const middlewares = require('./middlewares/middlewares');
+//const { default: user } = require('src/store/user/index.js');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -41,10 +43,19 @@ app.use('/posts/:id/comments', middlewares.isLoggedIn, require('./routes/comment
 
 
 app.use('/', (req, res) => {
-  res.json({
-    user: req.user
+  User.findById(req.user.id)
+  .populate('image')
+  .then((user) => {
+    res.json({
+      user: user
+    })
   })
-})
+  .catch((err) => {
+    res.status(404);
+    next(err)
+  })
+}
+)
 
 
 
