@@ -4,10 +4,10 @@
       {{ getError }}
     </q-banner>
      <q-form
-      v-if="this.getLoading"
       @submit.prevent="signUser"
       class="q-gutter-md"
     >
+      <Avatar @input="getFile" v-model="form.avatar"></Avatar>
       <q-input
         v-model="form.username"
         label="username"
@@ -24,7 +24,7 @@
       </div>
     </q-form>
 
-    <div class="row justify-center q-mt-lg">
+    <div class="row justify-center q-mt-lg"> 
         <q-btn @click="nullifyError" to="/login" class="q-mt-lg" q-mx-md label="Login" type="button" color="blue"/>
     </div>
   </div>
@@ -32,18 +32,22 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+
+import Avatar from './Avatar.vue'
+
 export default {
+  components: {
+    Avatar
+  },
   data() {
     return {
       form: {
-        username: "",
-        password: "",
+        
       },
     }
   },
   computed: {
     ...mapGetters('user', ['getError']),
-    ...mapGetters('user', ['getLoading'])
   },
   created() {
 
@@ -54,12 +58,17 @@ export default {
 
     signUser() {
       this.$q.loading.show();
+      
       this.signNewUser(this.form)
       .then(() => {
         this.$q.loading.hide();
       })
     }
    ,
+
+   getFile(file) {
+     this.form.avatar = file
+   },
 
     nullifyError() {
       this.emptyError();
