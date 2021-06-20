@@ -11,8 +11,8 @@
                   </q-avatar>
                 </div>
                 <div>
-                  <q-item-label>{{ comment.author.username }}</q-item-label>
-                  <q-item-label caption class="black">{{ comment.caption }}</q-item-label>
+                  <q-item-label class="text-bold">{{ comment.author.username }}</q-item-label>
+                  <q-item-label class="black">{{ comment.caption }}</q-item-label>
                 </div>
             </div>
           </q-item-section>

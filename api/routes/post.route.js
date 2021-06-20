@@ -4,11 +4,12 @@ const Post = require('../models/post.model');
 const multer = require('multer');
 const { storage } = require('../cloudinary')
 const upload = multer({ storage })
-const auth = require('../middlewares/middlewares');
+const middlewares = require('../middlewares/middlewares')
+
 
 // Index Page
 
-router.get('/', (req, res) => {
+router.get('/', middlewares.isLoggedIn, (req, res) => {
 
     Post.find({})
     .sort({"date":-1})
@@ -26,7 +27,7 @@ router.get('/', (req, res) => {
 
 // Post(Create) Route
 
-router.post('/add', upload.single('image'), (req, res, next) => {
+router.post('/add', middlewares.isLoggedIn, upload.single('image'), (req, res, next) => {
     let post = new Post({
         location: req.body.location,
         caption: req.body.caption,
@@ -42,42 +43,9 @@ router.post('/add', upload.single('image'), (req, res, next) => {
     })
 })
 
-// Edit Post route
+// Delete Route
 
-router.get('/edit/:id', (req, res) => {
-    Post.findById(req.params.id,  (err, post) => {
-        if(err){
-            res.json(err)
-        } else {
-            res.json(post)
-        }
-    })
-})
-
-// Update the Post
-
-router.post('/update/:id', (req, res) => {
-    Post.findById(req.params.id, (err, post) => {
-        if(err){
-            res.json(404).send('data was not found');
-        } else {
-            post.title = req.body.title;
-            post.body = req.body.body;
-            post.image = req.body.image
-            post.save()
-            .then(() => {
-                res.json('Update was successful')
-            })
-            .catch(() => {
-                res.status(400).send('was unable to update');
-            });
-        }
-    });
-})
-
-// Delete Router
-
-router.delete('/delete/:id',  (req, res) => {
+router.delete('/:id/delete', (req, res) => {
     Post.findByIdAndRemove(req.params.id, (err) => {
         if(err){
             res.json(err);
@@ -86,6 +54,8 @@ router.delete('/delete/:id',  (req, res) => {
         }
     });
 });
+
+
 
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let api = `http://localhost:4000/posts`;
+const api = `http://localhost:4000/posts`;
 
 export function fetchVibes ({ commit }) {
   axios.get(api, {
@@ -12,3 +12,4 @@ export function fetchVibes ({ commit }) {
     commit('SET_VIBES', res.data)
   })
 }
+

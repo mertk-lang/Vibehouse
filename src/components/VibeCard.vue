@@ -14,11 +14,11 @@
             {{vibe.location}}
            </q-item-label>
           </q-item-section>
-           <q-btn color="grey-7" round flat icon="more_vert">
+           <q-btn v-if="vibe.author.username === getUser.username" color="grey-7" round flat icon="more_vert">
               <q-menu cover auto-close>
                 <q-list>
                   <q-item clickable>
-                    <q-item-section @click="deleteVibe(vibe._id)">Delete</q-item-section>
+                    <q-item-section @click="deleteVibe()">Delete</q-item-section>
                   </q-item>
                 </q-list>
               </q-menu>
@@ -26,7 +26,7 @@
         </q-item>
 
           <q-separator />
-      <q-img
+      <img
         v-bind:src="vibe.image.url"
       />
       <q-card-section class="">
@@ -86,6 +86,7 @@
      },
      computed: {
        ...mapGetters('vibe', ['getVibes']),
+       ...mapGetters('user', ['getUser']),
        ...mapGetters('comment', ['getComments']),
     
      },
@@ -95,9 +96,16 @@
        ),
 
        deleteVibe(id) {
-          let url = `http://localhost:4000/posts/delete/${id}`;
+          let url = `http://localhost:4000/posts/${this.vibe._id}/delete`;
           axios.delete(url).then(() => {
-          this.getVibes.splice(this.getVibes.indexOf(vibe), 1);
+            this.$q.notify({
+          message: 'Vibe successfully removed',
+          color: 'negative',
+          actions: [
+            { label: 'Dismiss', color: 'white',}
+          ]
+          })
+          this.getVibes.splice(this.getVibes.indexOf(this.vibe), 1);
       });
        },
        toggleComments() {

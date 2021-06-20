@@ -33,14 +33,13 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
+
 app.use(middlewares.checkTokenSetUser)
 
+
 app.use('/auth', require('./routes/user.route.js'));
-app.use('/posts', middlewares.isLoggedIn, require('./routes/post.route.js'));
+app.use('/posts', require('./routes/post.route.js'));
 app.use('/posts/:id/comments', middlewares.isLoggedIn, require('./routes/comment.route.js'));
-
-
-
 
 app.use('/', (req, res) => {
   User.findById(req.user.id)
@@ -56,8 +55,6 @@ app.use('/', (req, res) => {
   })
 }
 )
-
-
 
 function notFound(req, res, next) {
   res.status(404);
