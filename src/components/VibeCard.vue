@@ -37,8 +37,8 @@
         <div class="q-mb-sm text-subtitle2 text-grey-7">
           {{vibe.date | convertDate}}
           </div>
-        <q-btn v-if="!this.$q.dark.isActive"  @click="toggleComments" class="large-screen text-grey-10 q-mr-md" flat round color="primary" size="14px" icon="eva-message-circle-outline" dense/>
-        <q-btn v-if="this.$q.dark.isActive" @click="toggleComments" class="large-screen text-white q-mr-md" flat round color="primary" size="14px" icon="eva-message-circle-outline" dense/>
+        <q-btn v-if="!this.$q.dark.isActive"  @click="toggleComments" class="text-grey-10 q-mr-md" flat round color="primary" size="14px" icon="eva-message-circle-outline" dense/>
+        <q-btn v-if="this.$q.dark.isActive" @click="toggleComments" class="text-white q-mr-md" flat round color="primary" size="14px" icon="eva-message-circle-outline" dense/>
       </q-card-section>
       <q-card-section v-if="showComments">
         <Comment v-for="comment in comments"

@@ -10,3 +10,15 @@
 .container-2
   max-width: 600px
   margin: 0 auto
+
+.small-screen
+  @media (max-width: $breakpoint-xs-max)
+    display: block
+  @media (min-width: $breakpoint-sm-min)
+    display: none
+
+.large-screen
+  @media (max-width: $breakpoint-xs-max)
+    display: none
+  @media (min-width: $breakpoint-sm-min)
+    display: block

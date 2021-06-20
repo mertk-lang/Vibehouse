@@ -113,13 +113,13 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `vibehouse`,
-        short_name: `vibehouse`,
-        description: `A Quasar Framework app`,
+        name: `Vibehouse - Vibe your thoughts`,
+        short_name: `Vibehouse`,
+        description: `An instagram like web app made with Quasar`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
-        theme_color: '#027be3',
+        theme_color: '#1b0275',
         icons: [
           {
             src: 'icons/icon-128x128.png',
