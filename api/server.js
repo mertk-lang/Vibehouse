@@ -33,11 +33,11 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-
+const secret = process.env.SECRET
 
 app.use(session({
     name: 'session',
-    secret: 'kojiro3434',
+    secret,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -47,7 +47,7 @@ app.use(session({
     },
     store: MongoStore.create({
       mongoUrl: config.DB,
-      secret: 'kojiro3434',
+      secret,
       touchAfter: 24 * 60 * 60,
     })
 }))
