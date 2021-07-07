@@ -30,7 +30,7 @@
         v-bind:src="vibe.image.url"
       />
       <q-card-section class="">
-        <div class="q-mb-sm text-grey-10 text-bold">{{ vibe.location }}</div>
+     
         <div class="q-mb-sm text-weight-regular">
           {{ vibe.caption }}
         </div>

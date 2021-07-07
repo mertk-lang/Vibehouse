@@ -1,10 +1,11 @@
 const express = require('express');
+const session = require('express-session');
 const PORT = 4000;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
 const User = require('./models/user.model.js')
-
+const MongoStore = require('connect-mongo');
 
 require('dotenv').config();
 
@@ -15,7 +16,6 @@ if(process.env.NODE_ENV !== "production") {
 const app = express();
 
 const middlewares = require('./middlewares/middlewares');
-//const { default: user } = require('src/store/user/index.js');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -33,6 +33,24 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
+
+
+app.use(session({
+    name: 'session',
+    secret: 'kojiro3434',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+    },
+    store: MongoStore.create({
+      mongoUrl: config.DB,
+      secret: 'kojiro3434',
+      touchAfter: 24 * 60 * 60,
+    })
+}))
 
 app.use(middlewares.checkTokenSetUser)
 

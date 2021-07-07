@@ -19,7 +19,6 @@ router.get('/', middlewares.isLoggedIn, (req, res) => {
         if(err) {
             res.json(err);
         } else {
-            console.log(posts);
             res.json(posts)
         }
     })

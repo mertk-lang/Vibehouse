@@ -37,6 +37,7 @@
     </q-header>
 
     <q-footer v-if="!this.$q.dark.isActive" class="bg-white small-screen" bordered>
+    <InstallationBanner v-if="showBanner"></InstallationBanner>
       <q-tabs class="text-grey-10" active-color="primary" indicator-color="transparent">
         <q-route-tab to="/"  icon="eva-home-outline"  />
         <q-route-tab to="/vibe"  icon="eva-camera-outline"  />
@@ -61,9 +62,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'MainLayout',
+  components: {
+  },
   data () {
     return {
-
+      showBanner: false
     }
   },
   computed: {
