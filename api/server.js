@@ -1,6 +1,5 @@
 const express = require('express');
 const session = require('express-session');
-const PORT = 4000;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
@@ -93,6 +92,8 @@ function errorHandler(error, req, res,) {
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, function(){
-  console.log('Server is running on Port:',PORT);
+const port = process.env.PORT || 3000;
+
+app.listen(port, function(){
+  console.log('Server is running on Port:',port);
 });
