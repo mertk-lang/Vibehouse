@@ -6,6 +6,7 @@
   "author": "Mert <mertfor4_dev@outlook.com>",
   "private": true,
   "scripts": {
+    "start": "node app.js",
     "icon": "icongenie generate -i vibehouse-icon.png --skip-trim --theme-color 212121"
   },
   "dependencies": {
