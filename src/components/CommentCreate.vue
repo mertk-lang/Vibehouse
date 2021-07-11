@@ -31,7 +31,7 @@ export default {
     ...mapActions('comment', ['fetchComment']),
 
     submit() {
-      axios.post(`http://localhost:4000/posts/${this.credentials.vibe._id}/comments/new`, this.credentials, {
+      axios.post(`${ process.env.API }/posts/${this.credentials.vibe._id}/comments/new`, this.credentials, {
     headers: {
       authorization: `Bearer ${localStorage.token}`
     }

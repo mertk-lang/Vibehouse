@@ -41,7 +41,7 @@
 <script>
   const url = `http://localhost:4000/posts/add`;
 
-  import { mapGetters } from "vuex";
+  import { mapGetters, mapActions } from "vuex";
 
   require('md-gum-polyfill')
 
@@ -161,6 +161,9 @@ export default {
       }
       this.loadingState = false;
     },
+    ...mapActions(
+      'vibe', ['fetchVibes']
+    ),
     addPost() {
       this.$q.loading.show()
       let fd = new FormData();
@@ -175,13 +178,13 @@ export default {
       })
       .then((res) => {
         this.$router.push('/')
-         this.$q.notify({
+        this.$q.notify({
         message: 'Successful, redirecting...',
         color: 'positive',
         actions: [
           { label: 'Dismiss', color: 'white',}
         ]
-      })
+        })
       this.$q.loading.hide()
       })
       .catch((err) => {

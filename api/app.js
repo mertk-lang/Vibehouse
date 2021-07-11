@@ -38,7 +38,7 @@ app.use(session({
     name: 'session',
     secret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
     httpOnly: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
@@ -50,6 +50,7 @@ app.use(session({
       touchAfter: 24 * 60 * 60,
     })
 }))
+
 
 app.use(middlewares.checkTokenSetUser)
 

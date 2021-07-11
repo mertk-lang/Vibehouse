@@ -30,7 +30,7 @@
         v-bind:src="vibe.image.url"
       />
       <q-card-section class="">
-     
+
         <div class="q-mb-sm text-weight-regular">
           {{ vibe.caption }}
         </div>
@@ -52,10 +52,10 @@
         <q-input v-model="credentials.comment" class="q-mt-md" color="purple-12" label="Vibe your toughts" dense />
        </q-form>
       </q-card-section>
-  
+
     </q-card>
-    
-    
+
+
    </div>
  </template>
 
@@ -77,7 +77,7 @@
      data () {
        return {
          showComments: false,
-         comments: '',
+         comments: {},
          credentials: {
            vibe: this.vibe,
            comment: ''
@@ -88,7 +88,7 @@
        ...mapGetters('vibe', ['getVibes']),
        ...mapGetters('user', ['getUser']),
        ...mapGetters('comment', ['getComments']),
-    
+
      },
      methods: {
        ...mapActions(
@@ -113,14 +113,14 @@
          axios.get(`http://localhost:4000/posts/${this.vibe._id}/comments`, {
           headers: {
             authorization: `Bearer ${localStorage.token}`
-          } 
+          }
         })
         .then((res) => {
           this.comments = res.data
         })
        },
        submit() {
-        axios.post(`http://localhost:4000/posts/${this.credentials.vibe._id}/comments/new`, this.credentials, {
+        axios.post(`http://localhost:4000/posts/${this.vibe._id}/comments/new`, this.credentials, {
         headers: {
           authorization: `Bearer ${localStorage.token}`
         }

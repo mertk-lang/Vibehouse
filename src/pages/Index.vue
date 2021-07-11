@@ -52,7 +52,7 @@ export default {
       loading: false
     }
   },
-  created() {
+  mounted() {
     this.loading = true
     this.fetchVibes()
     this.loading = false
