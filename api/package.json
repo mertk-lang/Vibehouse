@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express":"*",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "catch-async": "^1.0.1",
@@ -22,6 +21,7 @@
     "connect-mongo": "^4.4.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express": "*",
     "express-session": "^1.17.1",
     "gridfs-stream": "^1.1.1",
     "joi": "^17.3.0",

@@ -6,6 +6,8 @@ const config = require('./DB.js');
 const User = require('./models/user.model.js')
 const MongoStore = require('connect-mongo');
 
+
+
 require('dotenv').config();
 
 if(process.env.NODE_ENV !== "production") {
@@ -14,12 +16,17 @@ if(process.env.NODE_ENV !== "production") {
 
 const app = express();
 
+app.use(cors({
+  origin: "*"
+}));
+
+
 const middlewares = require('./middlewares/middlewares');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use(cors());
+
 
 
 mongoose.Promise = global.Promise;
@@ -53,7 +60,6 @@ app.use(session({
 
 
 app.use(middlewares.checkTokenSetUser)
-
 
 app.use('/auth', require('./routes/user.route.js'));
 app.use('/posts', require('./routes/post.route.js'));
