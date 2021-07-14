@@ -3,8 +3,9 @@ const session = require('express-session');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
-const User = require('./models/user.model.js')
+const User = require('./models/user.model.js');
 const MongoStore = require('connect-mongo');
+const serveStatic = require('serve-static');
 
 
 
@@ -16,8 +17,11 @@ if(process.env.NODE_ENV !== "production") {
 
 const app = express();
 
+app.use(serveStatic(__dirname + '../dist/spa'))
+
+
 app.use(cors({
-  origin: "*"
+  "Access-Control-Allow-Origin": "*"
 }));
 
 
