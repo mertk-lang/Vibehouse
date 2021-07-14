@@ -7,6 +7,7 @@ const User = require('./models/user.model.js');
 const MongoStore = require('connect-mongo');
 const serveStatic = require('serve-static');
 
+const app = express();
 
 
 require('dotenv').config();
@@ -15,9 +16,8 @@ if(process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 
-const app = express();
 
-app.use(serveStatic(__dirname + '../dist/spa'))
+
 
 
 app.use(cors({
