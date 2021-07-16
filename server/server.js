@@ -9,7 +9,7 @@ const serveStatic = require('serve-static');
 
 const app = express();
 
-app.use(serveStatic(__dirname + 'client/dist/spa'))
+app.use(serveStatic(__dirname + '/dist/spa'))
 
 
 require('dotenv').config();
