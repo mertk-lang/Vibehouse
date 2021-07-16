@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server.js",
     "build": "quasar build",
     "heroku-postbuild": "npm && npm build",
-    "deploy": "heroku builds:create -a vibehouse-backend",
+    "deploy": "heroku builds:create -a lit-citadel-51863",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon app.js"
+    "serve": "nodemon server.js"
   },
   "keywords": [],
   "author": "",

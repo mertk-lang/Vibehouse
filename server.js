@@ -11,14 +11,12 @@ const app = express();
 
 app.use(serveStatic(__dirname + 'client/dist/spa'))
 
+
 require('dotenv').config();
 
 if(process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
-
-
-
 
 
 app.use(cors({
