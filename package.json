@@ -6,10 +6,12 @@
   "scripts": {
     "start": "node server.js",
     "build": "quasar build",
-    "heroku-postbuild": "npm && npm build",
     "deploy": "heroku builds:create -a lit-citadel-51863",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js",
+    "engines": {
+      "node": "12.18.4"
+    }
   },
   "keywords": [],
   "author": "",
