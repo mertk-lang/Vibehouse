@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  const url = `http://localhost:4000/posts/add`;
+  const url = `https://lit-citadel-51863.herokuapp.com/posts/add`;
 
   import { mapGetters, mapActions } from "vuex";
 

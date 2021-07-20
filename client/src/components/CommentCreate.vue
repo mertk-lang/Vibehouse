@@ -31,7 +31,7 @@ export default {
     ...mapActions('comment', ['fetchComment']),
 
     submit() {
-      axios.post(`${ process.env.API }/posts/${this.credentials.vibe._id}/comments/new`, this.credentials, {
+      axios.post(`https://lit-citadel-51863.herokuapp.com/posts/${this.credentials.vibe._id}/comments/new`, this.credentials, {
     headers: {
       authorization: `Bearer ${localStorage.token}`
     }

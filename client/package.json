@@ -4,6 +4,7 @@
   "description": "A Quasar Framework app",
   "productName": "vibehouse",
   "author": "Mert <mertfor4_dev@outlook.com>",
+  "proxy": "http://localhost:4000",
   "private": true,
   "scripts": {
     "icon": "icongenie generate -i vibehouse-icon.png --skip-trim --theme-color 212121"

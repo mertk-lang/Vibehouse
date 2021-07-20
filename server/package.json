@@ -8,10 +8,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "npx quasar build -m ssr",
-    "deploy": "heroku builds:create -a lit-citadel-51863",
+    "build": "quasar build",
+    "deploy": "vercel",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js",
+    "heroku-postbuild": "echo Skip builds on Heroku"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,8 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "http-proxy-middleware": "^2.0.1",
     "nodemon": "^2.0.6"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

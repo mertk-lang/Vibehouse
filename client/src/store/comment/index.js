@@ -1,5 +1,5 @@
 import axios from 'axios';
-//let api = `http://localhost:4000/posts`;
+//let api = `https://lit-citadel-51863.herokuapp.com/posts`;
 
 
 
@@ -21,7 +21,7 @@ const actions = {
 
 async fetchComments({ commit }, vibe) {
   try {
-    let response = await axios.get(`http://localhost:4000/posts/${vibe._id}/comments`, {
+    let response = await axios.get(`posts/${vibe._id}/comments`, {
       headers: {
         authorization: `Bearer ${localStorage.token}`
       }
@@ -37,7 +37,7 @@ async fetchComments({ commit }, vibe) {
 },
 
 createComment({ commit, dispatch }, credentials) {
-  axios.post(`http://localhost:4000/posts/${credentials.vibe._id}/comments/new`, credentials, {
+  axios.post(`posts/${credentials.vibe._id}/comments/new`, credentials, {
     headers: {
       authorization: `Bearer ${localStorage.token}`
     }
