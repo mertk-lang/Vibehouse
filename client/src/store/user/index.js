@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Joi from 'joi';
-const port = process.env.PORT || 4000;
-const loginApi = `https://lit-citadel-51863.herokuapp.com/auth/login`;
-const registerApi = `https://lit-citadel-51863.herokuapp.com/auth/register`;
-const api = `https://lit-citadel-51863.herokuapp.com`;
+//http://localhost:4000
+const loginApi = `https://vibehouse-backend.herokuapp.com/auth/login`;
+const registerApi = `https://vibehouse-backend.herokuapp.com/auth/register`;
+const api = `https://vibehouse-backend.herokuapp.com`;
 
 const schema = Joi.object({
     username: Joi.string()

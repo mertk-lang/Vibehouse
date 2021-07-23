@@ -9,7 +9,11 @@ const serveStatic = require('serve-static');
 
 const app = express();
 
-app.use(serveStatic(__dirname + '/dist/spa'))
+
+
+
+app.use(cors());
+
 
 
 require('dotenv').config();
@@ -19,17 +23,11 @@ if(process.env.NODE_ENV !== "production") {
 }
 
 
-app.use(cors({
-  "Access-Control-Allow-Origin": "*"
-}));
-
 
 const middlewares = require('./middlewares/middlewares');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-
-
 
 
 mongoose.Promise = global.Promise;
@@ -64,6 +62,8 @@ app.use(session({
 
 app.use(middlewares.checkTokenSetUser)
 
+
+
 app.use('/auth', require('./routes/user.route.js'));
 app.use('/posts', require('./routes/post.route.js'));
 app.use('/posts/:id/comments', middlewares.isLoggedIn, require('./routes/comment.route.js'));
@@ -83,6 +83,10 @@ app.use('/', (req, res) => {
 }
 )
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/dist'))
+})
+
 function notFound(req, res, next) {
   res.status(404);
   const error = new Error('Not Found - ' + req.originalUrl);
@@ -101,6 +105,7 @@ function errorHandler(error, req, res,) {
 
 app.use(notFound);
 app.use(errorHandler);
+app.use(serveStatic(__dirname + '/dist'))
 
 const port = process.env.PORT || 4000;
 

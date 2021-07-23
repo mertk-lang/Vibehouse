@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = `https://lit-citadel-51863.herokuapp.com/posts`;
+const api = `https://vibehouse-backend.herokuapp.com`;
 
 export function fetchVibes ({ commit }) {
   axios.get(api, {
