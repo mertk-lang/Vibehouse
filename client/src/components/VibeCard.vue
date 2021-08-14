@@ -96,7 +96,7 @@
        ),
 
        deleteVibe(id) {
-          let url = `https://vibehouse-backend.herokuapp.com/posts/${this.vibe._id}/delete`;
+          let url = `https://vibehouse-backend.herokuapp.com/api/posts/${this.vibe._id}/delete`;
           axios.delete(url).then(() => {
             this.$q.notify({
           message: 'Vibe successfully removed',
@@ -110,7 +110,7 @@
        },
        toggleComments() {
          this.showComments = !this.showComments
-         axios.get(`https://vibehouse-backend.herokuapp.com/posts/${this.vibe._id}/comments`, {
+         axios.get(`https://vibehouse-backend.herokuapp.com/api/posts/${this.vibe._id}/comments`, {
           headers: {
             authorization: `Bearer ${localStorage.token}`
           }
@@ -120,7 +120,7 @@
         })
        },
        submit() {
-        axios.post(`https://vibehouse-backend.herokuapp.com/posts/${this.vibe._id}/comments/new`, this.credentials, {
+        axios.post(`https://vibehouse-backend.herokuapp.com/api/posts/${this.vibe._id}/comments/new`, this.credentials, {
         headers: {
           authorization: `Bearer ${localStorage.token}`
         }

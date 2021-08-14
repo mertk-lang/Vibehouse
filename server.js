@@ -11,8 +11,8 @@ const app = express();
 
 
 
-
 app.use(cors());
+
 
 
 
@@ -64,11 +64,13 @@ app.use(middlewares.checkTokenSetUser)
 
 
 
-app.use('/auth', require('./routes/user.route.js'));
-app.use('/posts', require('./routes/post.route.js'));
-app.use('/posts/:id/comments', middlewares.isLoggedIn, require('./routes/comment.route.js'));
 
-app.use('/', (req, res) => {
+
+app.use('/api/auth', require('./routes/user.route.js'));
+app.use('/api/posts', require('./routes/post.route.js'));
+app.use('/api/posts/:id/comments', middlewares.isLoggedIn, require('./routes/comment.route.js'));
+
+app.use('/api', (req, res) => {
   User.findById(req.user.id)
   .populate('image')
   .then((user) => {
@@ -83,9 +85,12 @@ app.use('/', (req, res) => {
 }
 )
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/dist'))
+app.use(serveStatic(__dirname + '/dist/spa/'))
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/dist/spa/index.html'))
 })
+
 
 function notFound(req, res, next) {
   res.status(404);
@@ -105,7 +110,6 @@ function errorHandler(error, req, res,) {
 
 app.use(notFound);
 app.use(errorHandler);
-app.use(serveStatic(__dirname + '/dist'))
 
 const port = process.env.PORT || 4000;
 

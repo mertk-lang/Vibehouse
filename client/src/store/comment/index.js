@@ -21,7 +21,7 @@ const actions = {
 
 async fetchComments({ commit }, vibe) {
   try {
-    let response = await axios.get(`posts/${vibe._id}/comments`, {
+    let response = await axios.get(`/posts/${vibe._id}/comments`, {
       headers: {
         authorization: `Bearer ${localStorage.token}`
       }

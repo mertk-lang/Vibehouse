@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  const url = `https://vibehouse-backend.herokuapp.com/posts/add`;
+  const url = `https://vibehouse-backend.herokuapp.com/api/posts/add`;
 
   import { mapGetters, mapActions } from "vuex";
 

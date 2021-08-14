@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Joi from 'joi';
 //http://localhost:4000
-const loginApi = `https://vibehouse-backend.herokuapp.com/auth/login`;
-const registerApi = `https://vibehouse-backend.herokuapp.com/auth/register`;
-const api = `https://vibehouse-backend.herokuapp.com`;
+const loginApi = `https://vibehouse-backend.herokuapp.com/api/auth/login`;
+const registerApi = `https://vibehouse-backend.herokuapp.com/api/auth/register`;
+const api = `https://vibehouse-backend.herokuapp.com/api`;
 
 const schema = Joi.object({
     username: Joi.string()

@@ -7,12 +7,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "build": "quasar build",
+    "heroku-postbuild": "echo Skip build on Heroku",
     "deploy": "heroku builds:create -a vibehouse-backend",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon server.js",
-    "heroku-postbuild": "quasar build",
-    "start": "node server.js"
+    "serve": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "express": "*",
     "express-session": "^1.17.1",
     "gridfs-stream": "^1.1.1",
+    "http-proxy": "^1.18.1",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
