@@ -29,7 +29,6 @@ const middlewares = require('./middlewares/middlewares');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-
 mongoose.Promise = global.Promise;
  mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(
   () => {console.log('Database is connected') },
@@ -85,12 +84,13 @@ app.use('/api', (req, res) => {
 }
 )
 
-app.use(serveStatic(__dirname + '/dist/spa/'))
+if(process.env.NODE_ENV === 'production') {
+  app.use(serveStatic(__dirname + '/client/dist/spa/'))
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/dist/spa/index.html'))
-})
-
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/dist/spa/index.html'))
+  })
+}
 
 function notFound(req, res, next) {
   res.status(404);
